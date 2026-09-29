@@ -1,1 +1,545 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sonofthelight Admin</title><link rel="stylesheet" href="styles.css"></head><body><main class="section"><p class="eyebrow">PRIVATE AREA</p><h1 style="font-family:Space Grotesk;font-size:clamp(42px,7vw,80px);line-height:1">Sonofthelight<br><span style="color:#b8d7ff">Admin.</span></h1><p style="color:#98a3b5;max-width:650px">Admin dashboard shell with an AI assistant. Connect authentication/database before using it for real customer data.</p><div class="grid cards" style="margin-top:40px"><article><b>01</b><h3>Enquiries</h3><p>View and manage customer requests once your backend is connected.</p></article><article><b>02</b><h3>Content</h3><p>Manage portfolio projects, services, prices and offers.</p></article><article><b>03</b><h3>Admin Sonny AI</h3><p>Ask for content drafts, reply templates and business summaries.</p></article></div><section class="contact section" style="margin:50px -7% -110px"><div><p class="eyebrow">ADMIN ASSISTANT</p><h2>Ask Sonny<br><span>about your business.</span></h2></div><div><div id="adminMessages" class="ai-messages" style="min-height:230px;background:#080e17;border:1px solid #273449;border-radius:12px"><div class="ai-bubble bot">Hi Berachah. I can help draft service descriptions, reply templates and content ideas.</div></div><form id="adminForm" class="ai-form"><input id="adminInput" placeholder="Ask the admin assistant…" required><button>↑</button></form></div></section></main><script>const f=document.getElementById('adminForm'),i=document.getElementById('adminInput'),m=document.getElementById('adminMessages');function add(t,c){const d=document.createElement('div');d.className='ai-bubble '+c;d.textContent=t;m.appendChild(d);m.scrollTop=m.scrollHeight}async function reply(q){try{const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:q,context:'You are the private admin assistant for Sonofthelight. Help the owner manage website content, enquiries, services and pricing. Never expose secrets.'})});if(r.ok){const j=await r.json();if(j.reply)return j.reply}}catch(e){}return 'I can help plan content, improve service descriptions, draft client replies, and organize website updates. Live database actions require a connected backend.'}f.addEventListener('submit',async e=>{e.preventDefault();const q=i.value.trim();if(!q)return;add(q,'user');i.value='';const d=document.createElement('div');d.className='ai-bubble bot';d.textContent='Thinking…';m.appendChild(d);d.textContent=await reply(q)})</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sonofthelight — Admin</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #07111f;
+      color: #f5f7fa;
+      min-height: 100vh;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 250px;
+      background: #0b1728;
+      border-right: 1px solid #203149;
+      padding: 24px 16px;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 30px;
+      padding: 0 10px;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #38bdf8, #2563eb);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: white;
+    }
+
+    .brand strong {
+      display: block;
+    }
+
+    .brand small {
+      color: #7f91a8;
+    }
+
+    .nav-title {
+      color: #667991;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 22px 10px 8px;
+    }
+
+    .nav button {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      color: #aebbd0;
+      text-align: left;
+      padding: 11px 12px;
+      border-radius: 9px;
+      margin-bottom: 3px;
+    }
+
+    .nav button:hover,
+    .nav button.active {
+      background: #12243b;
+      color: white;
+    }
+
+    .main {
+      margin-left: 250px;
+      width: calc(100% - 250px);
+      padding: 28px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 28px;
+    }
+
+    .topbar h1 {
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+
+    .topbar p {
+      color: #8495ab;
+    }
+
+    .preview-btn {
+      background: #12243b;
+      color: white;
+      border: 1px solid #29415e;
+      padding: 11px 16px;
+      border-radius: 9px;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: #0d1b2d;
+      border: 1px solid #203149;
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .card-label {
+      color: #8293aa;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .card-value {
+      font-size: 27px;
+      font-weight: 700;
+    }
+
+    .panel {
+      background: #0d1b2d;
+      border: 1px solid #203149;
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+
+    .panel h2 {
+      font-size: 19px;
+      margin-bottom: 7px;
+    }
+
+    .panel-description {
+      color: #8191a6;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      color: #aebbd0;
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      background: #07111f;
+      color: white;
+      border: 1px solid #29415e;
+      border-radius: 8px;
+      padding: 12px;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #38bdf8;
+    }
+
+    .save {
+      background: #2563eb;
+      color: white;
+      border: 0;
+      border-radius: 8px;
+      padding: 11px 18px;
+      font-weight: 600;
+    }
+
+    .secondary {
+      background: #162941;
+      color: white;
+      border: 1px solid #29415e;
+      border-radius: 8px;
+      padding: 11px 18px;
+    }
+
+    .danger {
+      background: #351820;
+      color: #ffb4c0;
+      border: 1px solid #64303b;
+      border-radius: 8px;
+      padding: 9px 13px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 650px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 13px 10px;
+      border-bottom: 1px solid #203149;
+      font-size: 13px;
+    }
+
+    th {
+      color: #7f91a8;
+      font-weight: 500;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 8px;
+      border-radius: 20px;
+      background: #122e3c;
+      color: #67d6ff;
+      font-size: 11px;
+    }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .social-item {
+      background: #091525;
+      border: 1px solid #203149;
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .switch-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      padding: 14px 0;
+      border-bottom: 1px solid #203149;
+    }
+
+    .switch {
+      position: relative;
+      width: 46px;
+      height: 25px;
+    }
+
+    .switch input {
+      display: none;
+    }
+
+    .slider {
+      position: absolute;
+      inset: 0;
+      background: #26384e;
+      border-radius: 30px;
+    }
+
+    .slider:before {
+      content: "";
+      position: absolute;
+      width: 19px;
+      height: 19px;
+      left: 3px;
+      top: 3px;
+      background: white;
+      border-radius: 50%;
+      transition: .2s;
+    }
+
+    .switch input:checked + .slider {
+      background: #2563eb;
+    }
+
+    .switch input:checked + .slider:before {
+      transform: translateX(21px);
+    }
+
+    .template-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .template {
+      border: 1px solid #29415e;
+      background: #091525;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .template.selected {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 1px #38bdf8;
+    }
+
+    .template-preview {
+      height: 100px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, #0f172a, #2563eb);
+    }
+
+    .template:nth-child(2) .template-preview {
+      background: linear-gradient(135deg, #ffffff, #dbeafe);
+    }
+
+    .template:nth-child(3) .template-preview {
+      background: linear-gradient(135deg, #111111, #7c3aed);
+    }
+
+    .template h3 {
+      margin-bottom: 5px;
+    }
+
+    .template p {
+      color: #8191a6;
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+
+    .ai-box {
+      border: 1px solid #29415e;
+      border-radius: 12px;
+      padding: 18px;
+      background: #081423;
+    }
+
+    .ai-message {
+      padding: 14px;
+      background: #10243b;
+      border-radius: 10px;
+      color: #c7d5e7;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .mobile-menu {
+      display: none;
+    }
+
+    @media (max-width: 1000px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .template-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .sidebar {
+        display: none;
+      }
+
+      .sidebar.open {
+        display: block;
+        z-index: 10;
+        width: 260px;
+      }
+
+      .main {
+        margin-left: 0;
+        width: 100%;
+        padding: 18px;
+      }
+
+      .mobile-menu {
+        display: block;
+        background: #12243b;
+        border: 1px solid #29415e;
+        color: white;
+        padding: 9px 12px;
+        border-radius: 8px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+      }
+
+      .topbar h1 {
+        font-size: 22px;
+      }
+
+      .cards,
+      .form-grid,
+      .social-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+      <div class="logo">S</div>
+      <div>
+        <strong>Sonofthelight</strong>
+        <small>Admin Control</small>
+      </div>
+    </div>
+
+    <div class="nav">
+
+      <div class="nav-title">Main</div>
+
+      <button class="active" onclick="showSection('dashboard', this)">🏠 Dashboard</button>
+      <button onclick="showSection('brand', this)">🎨 Brand & Logo</button>
+      <button onclick="showSection('template', this)">🖥️ Website Template</button>
+      <button onclick="showSection('homepage', this)">✏️ Homepage</button>
+
+      <div class="nav-title">Business</div>
+
+      <button onclick="showSection('services', this)">🛠️ Services</button>
+      <button onclick="showSection('pricing', this)">💷 Pricing</button>
+      <button onclick="showSection('discounts', this)">🏷️ Discounts</button>
+      <button onclick="showSection('portfolio', this)">💼 Portfolio</button>
+      <button onclick="showSection('testimonials', this)">⭐ Testimonials</button>
+      <button onclick="showSection('faq', this)">❓ FAQ</button>
+
+      <div class="nav-title">Marketing</div>
+
+      <button onclick="showSection('social', this)">🔗 Social Links</button>
+      <button onclick="showSection('seo', this)">🔍 SEO</button>
+      <button onclick="showSection('enquiries', this)">📩 Enquiries</button>
+
+      <div class="nav-title">AI & Demos</div>
+
+      <button onclick="showSection('ai', this)">🤖 Sonny AI</button>
+      <button onclick="showSection('demos', this)">🌐 Demo Websites</button>
+
+      <div class="nav-title">System</div>
+
+      <button onclick="showSection('settings', this)">⚙️ Settings</button>
+
+    </div>
+  </aside>
+
+
+  <main class="main">
+
+    <div class="topbar">
+      <div>
+        <button class="mobile-menu" onclick="toggleSidebar()">☰ Menu</button>
+        <h1 id="pageTitle">Dashboard</h1>
+        <p>Manage your Sonofthelight website and business.</p>
+      </div>
+
+      <button class="preview-btn" onclick="window.open('/', '_blank')">
+        View Website ↗
+      </button>
+    </div>
+
+
+    <!-- DASHBOARD -->
+
+    <section id="dashboard" class="section active">
+
+      <div class="cards">
+
+        <div class="card">
+          <div class="card-label">Services
