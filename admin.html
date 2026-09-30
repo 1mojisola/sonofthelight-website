@@ -2,57 +2,30 @@
 <html lang="en">
 <head>
   
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <head>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
   const SUPABASE_URL = "https://oughvnubnadulfpxkkxn.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_5iS7u0vVMbQmJdVMlqiBqw_FhIs13so";
+  const SUPABASE_KEY = "YOUR_PUBLISHABLE_KEY";
 
   const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
   );
-  
-  <script>
-  (async () => {
-    const { data: { session } } = await supabaseClient.auth.getSession();
+
+  (async function () {
+    const {
+      data: { session }
+    } = await supabaseClient.auth.getSession();
 
     if (!session) {
-      window.location.href = "login.html";
+      window.location.replace("login.html");
     }
   })();
 </script>
-  
-</script>
-  
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script>
-const SUPABASE_URL =
-"https://oughvnubnadulfpxkkxn.supabase.co";
-
-const SUPABASE_KEY =
-"sb_publishable_5iS7u0vVMbQmJdVMlqiBqw_FhIs13so";
-
-const supabaseClient =
-window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
-
-(async function() {
-
-  const {
-    data: { session }
-  } = await supabaseClient.auth.getSession();
-
-  if (!session) {
-    window.location.replace("login.html");
-  }
-
-})();
-  </script>
-  
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sonofthelight — Admin</title>
