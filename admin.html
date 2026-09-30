@@ -1,37 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
-  <head>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-  const SUPABASE_URL = "https://oughvnubnadulfpxkkxn.supabase.co";
-  const SUPABASE_KEY = "YOUR_PUBLISHABLE_KEY";
-
-  const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
-
-  (async function () {
-    const {
-      data: { session }
-    } = await supabaseClient.auth.getSession();
-
-    if (!session) {
-      window.location.replace("login.html");
-    }
-  })();
-</script>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sonofthelight — Admin</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://oughvnubnadulfpxkkxn.supabase.co";
+const SUPABASE_KEY = "sb_publishable_5iS7u0vVMbQmJdVMlqiBqw_FhIs13so";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+/* Protect admin page */
+(async function() {
+
+  const {
+    data: { session }
+  } = await supabaseClient.auth.getSession();
+
+  if (!session) {
+    window.location.replace("login.html");
+  }
+
+})();
+</script>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 body{
   font-family:Arial,sans-serif;
@@ -40,10 +46,21 @@ body{
   min-height:100vh;
 }
 
-button,input,textarea,select{font:inherit}
-button{cursor:pointer}
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
 
-.layout{display:flex;min-height:100vh}
+button{
+  cursor:pointer;
+}
+
+.layout{
+  display:flex;
+  min-height:100vh;
+}
 
 .sidebar{
   width:250px;
@@ -76,8 +93,13 @@ button{cursor:pointer}
   font-weight:800;
 }
 
-.brand strong{display:block}
-.brand small{color:#7f91a8}
+.brand strong{
+  display:block;
+}
+
+.brand small{
+  color:#7f91a8;
+}
 
 .nav-title{
   color:#667991;
@@ -123,7 +145,15 @@ button{cursor:pointer}
   margin-bottom:5px;
 }
 
-.topbar p{color:#8495ab}
+.topbar p{
+  color:#8495ab;
+}
+
+.topbar-actions{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
 
 .preview-btn,
 .secondary{
@@ -134,8 +164,25 @@ button{cursor:pointer}
   border-radius:9px;
 }
 
-.section{display:none}
-.section.active{display:block}
+.logout-btn{
+  background:#351820;
+  color:#ffb4c0;
+  border:1px solid #64303b;
+  padding:11px 16px;
+  border-radius:9px;
+}
+
+.logout-btn:hover{
+  background:#4a202b;
+}
+
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+}
 
 .cards{
   display:grid;
@@ -151,7 +198,9 @@ button{cursor:pointer}
   border-radius:14px;
 }
 
-.card{padding:20px}
+.card{
+  padding:20px;
+}
 
 .card-label{
   color:#8293aa;
@@ -186,8 +235,13 @@ button{cursor:pointer}
   gap:16px;
 }
 
-.form-group{margin-bottom:15px}
-.form-group.full{grid-column:1/-1}
+.form-group{
+  margin-bottom:15px;
+}
+
+.form-group.full{
+  grid-column:1/-1;
+}
 
 label{
   display:block;
@@ -196,7 +250,9 @@ label{
   margin-bottom:7px;
 }
 
-input,textarea,select{
+input,
+textarea,
+select{
   width:100%;
   background:#07111f;
   color:white;
@@ -241,7 +297,9 @@ select:focus{
   margin-top:16px;
 }
 
-.table-wrap{overflow-x:auto}
+.table-wrap{
+  overflow-x:auto;
+}
 
 table{
   width:100%;
@@ -249,7 +307,8 @@ table{
   min-width:650px;
 }
 
-th,td{
+th,
+td{
   text-align:left;
   padding:13px 10px;
   border-bottom:1px solid #203149;
@@ -316,7 +375,9 @@ th{
   background:linear-gradient(135deg,#111111,#7c3aed);
 }
 
-.template h3{margin-bottom:5px}
+.template h3{
+  margin-bottom:5px;
+}
 
 .template p{
   color:#8191a6;
@@ -355,7 +416,9 @@ th{
   height:25px;
 }
 
-.switch input{display:none}
+.switch input{
+  display:none;
+}
 
 .slider{
   position:absolute;
@@ -376,13 +439,17 @@ th{
   transition:.2s;
 }
 
-.switch input:checked+.slider{background:#2563eb}
+.switch input:checked+.slider{
+  background:#2563eb;
+}
 
 .switch input:checked+.slider:before{
   transform:translateX(21px);
 }
 
-.mobile-menu{display:none}
+.mobile-menu{
+  display:none;
+}
 
 .notice{
   padding:13px 15px;
@@ -393,13 +460,34 @@ th{
   line-height:1.5;
 }
 
+.security-box{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  padding:15px;
+  border:1px solid #203149;
+  border-radius:10px;
+  background:#091525;
+}
+
 @media(max-width:1000px){
-  .cards{grid-template-columns:repeat(2,1fr)}
-  .template-grid{grid-template-columns:1fr}
+
+  .cards{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .template-grid{
+    grid-template-columns:1fr;
+  }
+
 }
 
 @media(max-width:760px){
-  .sidebar{display:none}
+
+  .sidebar{
+    display:none;
+  }
 
   .sidebar.open{
     display:block;
@@ -426,7 +514,14 @@ th{
     align-items:flex-start;
   }
 
-  .topbar h1{font-size:22px}
+  .topbar h1{
+    font-size:22px;
+  }
+
+  .topbar-actions{
+    flex-direction:column;
+    align-items:stretch;
+  }
 
   .cards,
   .form-grid,
@@ -434,13 +529,23 @@ th{
     grid-template-columns:1fr;
   }
 
-  .form-group.full{grid-column:auto}
+  .form-group.full{
+    grid-column:auto;
+  }
 
-  .preview-btn{
+  .preview-btn,
+  .logout-btn{
     padding:9px 11px;
     font-size:12px;
   }
+
+  .security-box{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
 }
+
 </style>
 </head>
 
@@ -449,72 +554,150 @@ th{
 <div class="layout">
 
 <!-- SIDEBAR -->
+
 <aside class="sidebar" id="sidebar">
 
 <div class="brand">
+
 <div class="logo">S</div>
+
 <div>
 <strong>Sonofthelight</strong>
 <small>Admin Control</small>
 </div>
+
 </div>
 
 <div class="nav">
 
 <div class="nav-title">Main</div>
 
-<button class="active" onclick="showSection('dashboard',this)">🏠 Dashboard</button>
-<button onclick="showSection('brand',this)">🎨 Brand & Logo</button>
-<button onclick="showSection('template',this)">🖥️ Website Template</button>
-<button onclick="showSection('homepage',this)">✏️ Homepage</button>
+<button class="active" onclick="showSection('dashboard',this)">
+🏠 Dashboard
+</button>
+
+<button onclick="showSection('brand',this)">
+🎨 Brand & Logo
+</button>
+
+<button onclick="showSection('template',this)">
+🖥️ Website Template
+</button>
+
+<button onclick="showSection('homepage',this)">
+✏️ Homepage
+</button>
+
 
 <div class="nav-title">Business</div>
 
-<button onclick="showSection('services',this)">🛠️ Services</button>
-<button onclick="showSection('pricing',this)">💷 Pricing</button>
-<button onclick="showSection('discounts',this)">🏷️ Discounts</button>
-<button onclick="showSection('portfolio',this)">💼 Portfolio</button>
-<button onclick="showSection('testimonials',this)">⭐ Testimonials</button>
-<button onclick="showSection('faq',this)">❓ FAQ</button>
+<button onclick="showSection('services',this)">
+🛠️ Services
+</button>
+
+<button onclick="showSection('pricing',this)">
+💷 Pricing
+</button>
+
+<button onclick="showSection('discounts',this)">
+🏷️ Discounts
+</button>
+
+<button onclick="showSection('portfolio',this)">
+💼 Portfolio
+</button>
+
+<button onclick="showSection('testimonials',this)">
+⭐ Testimonials
+</button>
+
+<button onclick="showSection('faq',this)">
+❓ FAQ
+</button>
+
 
 <div class="nav-title">Marketing</div>
 
-<button onclick="showSection('social',this)">🔗 Social Links</button>
-<button onclick="showSection('seo',this)">🔍 SEO</button>
-<button onclick="showSection('enquiries',this)">📩 Enquiries</button>
+<button onclick="showSection('social',this)">
+🔗 Social Links
+</button>
+
+<button onclick="showSection('seo',this)">
+🔍 SEO
+</button>
+
+<button onclick="showSection('enquiries',this)">
+📩 Enquiries
+</button>
+
 
 <div class="nav-title">AI & Demos</div>
 
-<button onclick="showSection('ai',this)">🤖 Sonny AI</button>
-<button onclick="showSection('demos',this)">🌐 Demo Websites</button>
+<button onclick="showSection('ai',this)">
+🤖 Sonny AI
+</button>
+
+<button onclick="showSection('demos',this)">
+🌐 Demo Websites
+</button>
+
 
 <div class="nav-title">System</div>
 
-<button onclick="showSection('settings',this)">⚙️ Settings</button>
+<button onclick="showSection('settings',this)">
+⚙️ Settings
+</button>
 
 </div>
+
 </aside>
 
 
 <!-- MAIN -->
+
 <main class="main">
 
 <div class="topbar">
 
 <div>
-<button class="mobile-menu" onclick="toggleSidebar()">☰ Menu</button>
-<h1 id="pageTitle">Dashboard</h1>
-<p>Manage your Sonofthelight website and business.</p>
+
+<button class="mobile-menu" onclick="toggleSidebar()">
+☰ Menu
+</button>
+
+<h1 id="pageTitle">
+Dashboard
+</h1>
+
+<p>
+Manage your Sonofthelight website and business.
+</p>
+
 </div>
 
-<button class="preview-btn" onclick="window.open('index.html','_blank')">
+<div class="topbar-actions">
+
+<button
+class="preview-btn"
+onclick="window.open('index.html','_blank')"
+>
 View Website ↗
 </button>
+
+<button
+class="logout-btn"
+onclick="logoutAdmin()"
+>
+Logout
+</button>
+
+</div>
 
 </div>
 
 
 <!-- DASHBOARD -->
+
 <section id="dashboard" class="section active">
 
 <div class="cards">
@@ -542,211 +725,521 @@ View Website ↗
 </div>
 
 <div class="panel">
-<h2>Welcome to Sonofthelight Admin</h2>
+
+<h2>
+Welcome to Sonofthelight Admin
+</h2>
+
 <p class="panel-description">
-Control your website content, services, prices, portfolio, enquiries and business settings from one place.
+Control your website content, services, prices, portfolio,
+enquiries and business settings from one place.
 </p>
 
 <div class="notice">
-<strong>Important:</strong> These controls are currently prepared for the admin interface.
-Database connection and permanent saving will be connected in the next stage.
+<strong>Admin secured.</strong>
+You are signed in through Supabase Authentication.
 </div>
 
 <div class="actions">
-<button class="save" onclick="showSection('homepage')">Edit Homepage</button>
-<button class="secondary" onclick="showSection('pricing')">Manage Pricing</button>
-<button class="secondary" onclick="showSection('portfolio')">Manage Portfolio</button>
+
+<button
+class="save"
+onclick="showSection('homepage')"
+>
+Edit Homepage
+</button>
+
+<button
+class="secondary"
+onclick="showSection('pricing')"
+>
+Manage Pricing
+</button>
+
+<button
+class="secondary"
+onclick="showSection('portfolio')"
+>
+Manage Portfolio
+</button>
+
 </div>
+
 </div>
 
 </section>
 
 
 <!-- BRAND -->
+
 <section id="brand" class="section">
 
 <div class="panel">
-<h2>Brand & Logo</h2>
-<p class="panel-description">Manage your business identity and visual branding.</p>
+
+<h2>
+Brand & Logo
+</h2>
+
+<p class="panel-description">
+Manage your business identity and visual branding.
+</p>
 
 <div class="form-grid">
 
 <div class="form-group">
-<label>Business Name</label>
-<input value="Sonofthelight">
+
+<label>
+Business Name
+</label>
+
+<input
+value="Sonofthelight"
+>
+
 </div>
 
+
 <div class="form-group">
-<label>Tagline</label>
-<input value="Modern websites that grow your business.">
+
+<label>
+Tagline
+</label>
+
+<input
+value="Modern websites that grow your business."
+>
+
 </div>
+
 
 <div class="form-group full">
-<label>Logo Image URL</label>
-<input placeholder="https://example.com/logo.png">
+
+<label>
+Logo Image URL
+</label>
+
+<input
+placeholder="https://example.com/logo.png"
+>
+
 </div>
+
 
 <div class="form-group">
-<label>Primary Colour</label>
-<input type="text" value="#2563eb">
+
+<label>
+Primary Colour
+</label>
+
+<input
+type="text"
+value="#2563eb"
+>
+
 </div>
+
 
 <div class="form-group">
-<label>Accent Colour</label>
-<input type="text" value="#38bdf8">
+
+<label>
+Accent Colour
+</label>
+
+<input
+type="text"
+value="#38bdf8"
+>
+
 </div>
+
 
 <div class="form-group">
-<label>Business Email</label>
-<input value="rotowaberachah@gmail.com">
+
+<label>
+Business Email
+</label>
+
+<input
+value="rotowaberachah@gmail.com"
+>
+
 </div>
+
 
 <div class="form-group">
-<label>WhatsApp Number</label>
-<input value="+2349039467844">
-</div>
+
+<label>
+WhatsApp Number
+</label>
+
+<input
+value="+2349039467844"
+>
 
 </div>
 
-<button class="save" onclick="saveMessage()">Save Brand Settings</button>
+</div>
+
+<button
+class="save"
+onclick="saveMessage()"
+>
+Save Brand Settings
+</button>
+
 </div>
 
 </section>
 
 
 <!-- TEMPLATE -->
+
 <section id="template" class="section">
 
 <div class="panel">
-<h2>Website Template</h2>
-<p class="panel-description">Choose the visual direction for your public website.</p>
+
+<h2>
+Website Template
+</h2>
+
+<p class="panel-description">
+Choose the visual direction for your public website.
+</p>
 
 <div class="template-grid">
 
-<div class="template selected" onclick="selectTemplate(this)">
-<div class="template-preview"></div>
-<h3>Modern</h3>
-<p>Clean, modern and professional.</p>
-<button class="save">Select</button>
-</div>
+<div
+class="template selected"
+onclick="selectTemplate(this)"
+>
 
-<div class="template" onclick="selectTemplate(this)">
 <div class="template-preview"></div>
-<h3>Minimal</h3>
-<p>Bright, simple and spacious.</p>
-<button class="secondary">Select</button>
-</div>
 
-<div class="template" onclick="selectTemplate(this)">
-<div class="template-preview"></div>
-<h3>Premium</h3>
-<p>Dark, bold and high-end.</p>
-<button class="secondary">Select</button>
-</div>
+<h3>
+Modern
+</h3>
+
+<p>
+Clean, modern and professional.
+</p>
+
+<button class="save">
+Select
+</button>
 
 </div>
+
+
+<div
+class="template"
+onclick="selectTemplate(this)"
+>
+
+<div class="template-preview"></div>
+
+<h3>
+Minimal
+</h3>
+
+<p>
+Bright, simple and spacious.
+</p>
+
+<button class="secondary">
+Select
+</button>
+
+</div>
+
+
+<div
+class="template"
+onclick="selectTemplate(this)"
+>
+
+<div class="template-preview"></div>
+
+<h3>
+Premium
+</h3>
+
+<p>
+Dark, bold and high-end.
+</p>
+
+<button class="secondary">
+Select
+</button>
+
+</div>
+
+</div>
+
 </div>
 
 </section>
 
 
 <!-- HOMEPAGE -->
+
 <section id="homepage" class="section">
 
 <div class="panel">
-<h2>Homepage Editor</h2>
-<p class="panel-description">Edit the main content visitors see.</p>
+
+<h2>
+Homepage Editor
+</h2>
+
+<p class="panel-description">
+Edit the main content visitors see.
+</p>
 
 <div class="form-grid">
 
 <div class="form-group full">
-<label>Hero Heading</label>
-<input value="Your business doesn't sleep. Your website shouldn't either.">
+
+<label>
+Hero Heading
+</label>
+
+<input
+value="Your business doesn't sleep. Your website shouldn't either."
+>
+
 </div>
+
 
 <div class="form-group full">
-<label>Hero Description</label>
-<textarea>Professional websites designed to help your business look credible, attract customers and grow online.</textarea>
+
+<label>
+Hero Description
+</label>
+
+<textarea>
+Professional websites designed to help your business look credible, attract customers and grow online.
+</textarea>
+
 </div>
 
-<div class="form-group">
-<label>Primary Button</label>
-<input value="Start Your Project">
-</div>
 
 <div class="form-group">
-<label>Secondary Button</label>
-<input value="View My Work">
+
+<label>
+Primary Button
+</label>
+
+<input
+value="Start Your Project"
+>
+
 </div>
+
+
+<div class="form-group">
+
+<label>
+Secondary Button
+</label>
+
+<input
+value="View My Work"
+>
+
+</div>
+
 
 <div class="form-group full">
-<label>About Section</label>
-<textarea>Sonofthelight creates modern websites for businesses, entrepreneurs and professionals.</textarea>
-</div>
+
+<label>
+About Section
+</label>
+
+<textarea>
+Sonofthelight creates modern websites for businesses, entrepreneurs and professionals.
+</textarea>
 
 </div>
 
-<button class="save" onclick="saveMessage()">Save Homepage</button>
+</div>
+
+<button
+class="save"
+onclick="saveMessage()"
+>
+Save Homepage
+</button>
+
 </div>
 
 </section>
 
 
 <!-- SERVICES -->
+
 <section id="services" class="section">
 
 <div class="panel">
-<h2>Services Manager</h2>
-<p class="panel-description">Add, edit or remove services displayed on your website.</p>
+
+<h2>
+Services Manager
+</h2>
+
+<p class="panel-description">
+Add, edit or remove services displayed on your website.
+</p>
 
 <div class="table-wrap">
 
 <table>
 
 <thead>
+
 <tr>
-<th>Service</th>
-<th>Price</th>
-<th>Status</th>
-<th>Action</th>
+
+<th>
+Service
+</th>
+
+<th>
+Price
+</th>
+
+<th>
+Status
+</th>
+
+<th>
+Action
+</th>
+
 </tr>
+
 </thead>
 
 <tbody>
 
 <tr>
-<td>Business Website Design</td>
-<td>From £300</td>
-<td><span class="badge">Active</span></td>
-<td><button class="secondary">Edit</button></td>
+
+<td>
+Business Website Design
+</td>
+
+<td>
+From £300
+</td>
+
+<td>
+<span class="badge">
+Active
+</span>
+</td>
+
+<td>
+<button class="secondary">
+Edit
+</button>
+</td>
+
 </tr>
 
-<tr>
-<td>Landing Page</td>
-<td>£150</td>
-<td><span class="badge">Active</span></td>
-<td><button class="secondary">Edit</button></td>
-</tr>
 
 <tr>
-<td>Website Redesign</td>
-<td>£250</td>
-<td><span class="badge">Active</span></td>
-<td><button class="secondary">Edit</button></td>
+
+<td>
+Landing Page
+</td>
+
+<td>
+£150
+</td>
+
+<td>
+<span class="badge">
+Active
+</span>
+</td>
+
+<td>
+<button class="secondary">
+Edit
+</button>
+</td>
+
 </tr>
 
-<tr>
-<td>Restaurant & Café</td>
-<td>£250</td>
-<td><span class="badge">Active</span></td>
-<td><button class="secondary">Edit</button></td>
-</tr>
 
 <tr>
-<td>Salon & Barber</td>
-<td>£200</td>
-<td><span class="badge">Active</span></td>
-<td><button class="secondary">Edit</button></td>
+
+<td>
+Website Redesign
+</td>
+
+<td>
+£250
+</td>
+
+<td>
+<span class="badge">
+Active
+</span>
+</td>
+
+<td>
+<button class="secondary">
+Edit
+</button>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+Restaurant & Café
+</td>
+
+<td>
+£250
+</td>
+
+<td>
+<span class="badge">
+Active
+</span>
+</td>
+
+<td>
+<button class="secondary">
+Edit
+</button>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+Salon & Barber
+</td>
+
+<td>
+£200
+</td>
+
+<td>
+<span class="badge">
+Active
+</span>
+</td>
+
+<td>
+<button class="secondary">
+Edit
+</button>
+</td>
+
 </tr>
 
 </tbody>
@@ -756,7 +1249,14 @@ Database connection and permanent saving will be connected in the next stage.
 </div>
 
 <div class="actions">
-<button class="save" onclick="saveMessage()">+ Add Service</button>
+
+<button
+class="save"
+onclick="saveMessage()"
+>
++ Add Service
+</button>
+
 </div>
 
 </div>
@@ -765,192 +1265,449 @@ Database connection and permanent saving will be connected in the next stage.
 
 
 <!-- PRICING -->
+
 <section id="pricing" class="section">
 
 <div class="panel">
-<h2>Pricing Manager</h2>
-<p class="panel-description">Control your standard packages and custom pricing.</p>
+
+<h2>
+Pricing Manager
+</h2>
+
+<p class="panel-description">
+Control your standard packages and custom pricing.
+</p>
 
 <div class="form-grid">
 
 <div class="form-group">
-<label>Starter</label>
-<input value="£150">
+
+<label>
+Starter
+</label>
+
+<input
+value="£150"
+>
+
 </div>
 
-<div class="form-group">
-<label>Business</label>
-<input value="£300">
-</div>
 
 <div class="form-group">
-<label>Premium</label>
-<input value="£500+">
+
+<label>
+Business
+</label>
+
+<input
+value="£300"
+>
+
 </div>
 
+
 <div class="form-group">
-<label>Maintenance</label>
-<input value="£40/month">
+
+<label>
+Premium
+</label>
+
+<input
+value="£500+"
+>
+
 </div>
+
+
+<div class="form-group">
+
+<label>
+Maintenance
+</label>
+
+<input
+value="£40/month"
+>
+
+</div>
+
 
 <div class="form-group full">
-<label>Custom Pricing Message</label>
-<textarea>Need something different? Tell us what you need and we'll create a custom quote.</textarea>
-</div>
+
+<label>
+Custom Pricing Message
+</label>
+
+<textarea>
+Need something different? Tell us what you need and we'll create a custom quote.
+</textarea>
 
 </div>
 
-<button class="save" onclick="saveMessage()">Save Pricing</button>
 </div>
+
+<button
+class="save"
+onclick="saveMessage()"
+>
+Save Pricing
+</button>
+
+</div>
+
 
 <div class="panel">
-<h2>Custom Pricing</h2>
-<p class="panel-description">Create special prices for individual projects.</p>
+
+<h2>
+Custom Pricing
+</h2>
+
+<p class="panel-description">
+Create special prices for individual projects.
+</p>
 
 <div class="form-grid">
 
 <div class="form-group">
-<label>Package Name</label>
-<input placeholder="Example: Restaurant Starter">
+
+<label>
+Package Name
+</label>
+
+<input
+placeholder="Example: Restaurant Starter"
+>
+
 </div>
+
 
 <div class="form-group">
-<label>Custom Price</label>
-<input placeholder="£220">
+
+<label>
+Custom Price
+</label>
+
+<input
+placeholder="£220"
+>
+
 </div>
+
 
 <div class="form-group full">
-<label>Description</label>
-<textarea placeholder="Describe what this custom package includes."></textarea>
-</div>
+
+<label>
+Description
+</label>
+
+<textarea
+placeholder="Describe what this custom package includes."
+></textarea>
 
 </div>
 
-<button class="save" onclick="saveMessage()">Create Custom Package</button>
+</div>
+
+<button
+class="save"
+onclick="saveMessage()"
+>
+Create Custom Package
+</button>
+
 </div>
 
 </section>
 
 
 <!-- DISCOUNTS -->
+
 <section id="discounts" class="section">
 
 <div class="panel">
-<h2>Discount Manager</h2>
-<p class="panel-description">Create temporary offers and promotional prices.</p>
+
+<h2>
+Discount Manager
+</h2>
+
+<p class="panel-description">
+Create temporary offers and promotional prices.
+</p>
 
 <div class="form-grid">
 
 <div class="form-group">
-<label>Discount Name</label>
-<input placeholder="Launch Offer">
+
+<label>
+Discount Name
+</label>
+
+<input
+placeholder="Launch Offer"
+>
+
 </div>
 
-<div class="form-group">
-<label>Discount</label>
-<input placeholder="20%">
-</div>
 
 <div class="form-group">
-<label>Start Date</label>
-<input type="date">
+
+<label>
+Discount
+</label>
+
+<input
+placeholder="20%"
+>
+
 </div>
 
+
 <div class="form-group">
-<label>End Date</label>
-<input type="date">
+
+<label>
+Start Date
+</label>
+
+<input
+type="date"
+>
+
 </div>
+
+
+<div class="form-group">
+
+<label>
+End Date
+</label>
+
+<input
+type="date"
+>
+
+</div>
+
 
 <div class="form-group full">
-<label>Promotion Message</label>
-<textarea placeholder="Limited-time website design offer."></textarea>
-</div>
+
+<label>
+Promotion Message
+</label>
+
+<textarea
+placeholder="Limited-time website design offer."
+></textarea>
 
 </div>
 
-<button class="save" onclick="saveMessage()">Save Discount</button>
+</div>
+
+<button
+class="save"
+onclick="saveMessage()"
+>
+Save Discount
+</button>
+
 </div>
 
 </section>
 
 
 <!-- PORTFOLIO -->
+
 <section id="portfolio" class="section">
 
 <div class="panel">
-<h2>Portfolio Manager</h2>
-<p class="panel-description">Add your completed website projects.</p>
+
+<h2>
+Portfolio Manager
+</h2>
+
+<p class="panel-description">
+Add your completed website projects.
+</p>
 
 <div class="form-grid">
 
 <div class="form-group">
-<label>Project Name</label>
-<input placeholder="Example: Elite Mobile Barber">
+
+<label>
+Project Name
+</label>
+
+<input
+placeholder="Example: Elite Mobile Barber"
+>
+
 </div>
+
 
 <div class="form-group">
-<label>Project Category</label>
-<input placeholder="Barber Website">
+
+<label>
+Project Category
+</label>
+
+<input
+placeholder="Barber Website"
+>
+
 </div>
+
 
 <div class="form-group full">
-<label>Project URL</label>
-<input placeholder="https://example.com">
+
+<label>
+Project URL
+</label>
+
+<input
+placeholder="https://example.com"
+>
+
 </div>
+
 
 <div class="form-group full">
-<label>Project Description</label>
-<textarea placeholder="Describe the project."></textarea>
+
+<label>
+Project Description
+</label>
+
+<textarea
+placeholder="Describe the project."
+></textarea>
+
 </div>
+
 
 <div class="form-group full">
-<label>Screenshot / Image URL</label>
-<input placeholder="https://example.com/image.jpg">
-</div>
+
+<label>
+Screenshot / Image URL
+</label>
+
+<input
+placeholder="https://example.com/image.jpg"
+>
 
 </div>
 
-<button class="save" onclick="saveMessage()">Add Portfolio Project</button>
 </div>
+
+<button
+class="save"
+onclick="saveMessage()"
+>
+Add Portfolio Project
+</button>
+
+</div>
+
 
 <div class="panel">
 
-<h2>Current Projects</h2>
+<h2>
+Current Projects
+</h2>
 
 <div class="table-wrap">
 
 <table>
 
 <thead>
+
 <tr>
-<th>Project</th>
-<th>Category</th>
-<th>URL</th>
-<th>Action</th>
+
+<th>
+Project
+</th>
+
+<th>
+Category
+</th>
+
+<th>
+URL
+</th>
+
+<th>
+Action
+</th>
+
 </tr>
+
 </thead>
 
 <tbody>
 
 <tr>
-<td>Show Café</td>
-<td>Restaurant</td>
-<td>show-cafe.vercel.app</td>
-<td><button class="secondary">Edit</button></td>
+
+<td>
+Show Café
+</td>
+
+<td>
+Restaurant
+</td>
+
+<td>
+show-cafe.vercel.app
+</td>
+
+<td>
+<button class="secondary">
+Edit
+</button>
+</td>
+
 </tr>
 
-<tr>
-<td>Elite Mobile Barber</td>
-<td>Barber</td>
-<td>v0-elite-mobile-barber.vercel.app</td>
-<td><button class="secondary">Edit</button></td>
-</tr>
 
 <tr>
-<td>R.M Event Planners</td>
-<td>Events</td>
-<td>Replit Project</td>
-<td><button class="secondary">Edit</button></td>
+
+<td>
+Elite Mobile Barber
+</td>
+
+<td>
+Barber
+</td>
+
+<td>
+v0-elite-mobile-barber.vercel.app
+</td>
+
+<td>
+<button class="secondary">
+Edit
+</button>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+R.M Event Planners
+</td>
+
+<td>
+Events
+</td>
+
+<td>
+Replit Project
+</td>
+
+<td>
+<button class="secondary">
+Edit
+</button>
+</td>
+
 </tr>
 
 </tbody>
@@ -958,113 +1715,247 @@ Database connection and permanent saving will be connected in the next stage.
 </table>
 
 </div>
+
 </div>
 
 </section>
 
 
 <!-- TESTIMONIALS -->
+
 <section id="testimonials" class="section">
 
 <div class="panel">
-<h2>Testimonials</h2>
-<p class="panel-description">Add client feedback to your website.</p>
+
+<h2>
+Testimonials
+</h2>
+
+<p class="panel-description">
+Add client feedback to your website.
+</p>
 
 <div class="form-grid">
 
 <div class="form-group">
-<label>Client Name</label>
-<input placeholder="Client name">
+
+<label>
+Client Name
+</label>
+
+<input
+placeholder="Client name"
+>
+
 </div>
+
 
 <div class="form-group">
-<label>Business</label>
-<input placeholder="Business name">
+
+<label>
+Business
+</label>
+
+<input
+placeholder="Business name"
+>
+
 </div>
+
 
 <div class="form-group full">
-<label>Testimonial</label>
-<textarea placeholder="What did the client say?"></textarea>
-</div>
+
+<label>
+Testimonial
+</label>
+
+<textarea
+placeholder="What did the client say?"
+></textarea>
 
 </div>
 
-<button class="save" onclick="saveMessage()">Add Testimonial</button>
+</div>
+
+<button
+class="save"
+onclick="saveMessage()"
+>
+Add Testimonial
+</button>
+
 </div>
 
 </section>
 
 
 <!-- FAQ -->
+
 <section id="faq" class="section">
 
 <div class="panel">
-<h2>FAQ Manager</h2>
-<p class="panel-description">Manage frequently asked questions.</p>
+
+<h2>
+FAQ Manager
+</h2>
+
+<p class="panel-description">
+Manage frequently asked questions.
+</p>
 
 <div class="form-group">
-<label>Question</label>
-<input placeholder="How much does a website cost?">
+
+<label>
+Question
+</label>
+
+<input
+placeholder="How much does a website cost?"
+>
+
 </div>
 
 <div class="form-group">
-<label>Answer</label>
-<textarea placeholder="Website prices depend on the type and features required."></textarea>
+
+<label>
+Answer
+</label>
+
+<textarea
+placeholder="Website prices depend on the type and features required."
+></textarea>
+
 </div>
 
-<button class="save" onclick="saveMessage()">Add FAQ</button>
+<button
+class="save"
+onclick="saveMessage()"
+>
+Add FAQ
+</button>
+
 </div>
 
 </section>
 
 
 <!-- SOCIAL -->
+
 <section id="social" class="section">
 
 <div class="panel">
-<h2>Social Links</h2>
-<p class="panel-description">Manage the social and contact links displayed on your website.</p>
+
+<h2>
+Social Links
+</h2>
+
+<p class="panel-description">
+Manage the social and contact links displayed on your website.
+</p>
 
 <div class="social-grid">
 
 <div class="social-item">
-<label>WhatsApp</label>
-<input value="https://wa.me/2349039467844">
+
+<label>
+WhatsApp
+</label>
+
+<input
+value="https://wa.me/2349039467844"
+>
+
 </div>
 
-<div class="social-item">
-<label>Instagram</label>
-<input value="https://www.instagram.com/rotowaberachah">
-</div>
 
 <div class="social-item">
-<label>GitHub</label>
-<input value="https://github.com/1mojisola">
+
+<label>
+Instagram
+</label>
+
+<input
+value="https://www.instagram.com/rotowaberachah"
+>
+
 </div>
 
-<div class="social-item">
-<label>Facebook</label>
-<input placeholder="Facebook profile URL">
-</div>
 
 <div class="social-item">
-<label>Reddit</label>
-<input placeholder="Reddit profile URL">
+
+<label>
+GitHub
+</label>
+
+<input
+value="https://github.com/1mojisola"
+>
+
 </div>
 
-<div class="social-item">
-<label>TikTok</label>
-<input placeholder="TikTok profile URL">
-</div>
 
 <div class="social-item">
-<label>LinkedIn</label>
-<input placeholder="LinkedIn profile URL">
+
+<label>
+Facebook
+</label>
+
+<input
+placeholder="Facebook profile URL"
+>
+
 </div>
 
+
 <div class="social-item">
-<label>Fiverr</label>
-<input placeholder="Fiverr profile URL">
+
+<label>
+Reddit
+</label>
+
+<input
+placeholder="Reddit profile URL"
+>
+
+</div>
+
+
+<div class="social-item">
+
+<label>
+TikTok
+</label>
+
+<input
+placeholder="TikTok profile URL"
+>
+
+</div>
+
+
+<div class="social-item">
+
+<label>
+LinkedIn
+</label>
+
+<input
+placeholder="LinkedIn profile URL"
+>
+
+</div>
+
+
+<div class="social-item">
+
+<label>
+Fiverr
+</label>
+
+<input
+placeholder="Fiverr profile URL"
+>
+
 </div>
 
 </div>
@@ -1072,11 +1963,23 @@ Database connection and permanent saving will be connected in the next stage.
 <br>
 
 <div class="form-group">
-<label>Business Email</label>
-<input value="rotowaberachah@gmail.com">
+
+<label>
+Business Email
+</label>
+
+<input
+value="rotowaberachah@gmail.com"
+>
+
 </div>
 
-<button class="save" onclick="saveMessage()">Save Social Links</button>
+<button
+class="save"
+onclick="saveMessage()"
+>
+Save Social Links
+</button>
 
 </div>
 
@@ -1084,68 +1987,153 @@ Database connection and permanent saving will be connected in the next stage.
 
 
 <!-- SEO -->
+
 <section id="seo" class="section">
 
 <div class="panel">
-<h2>SEO Settings</h2>
-<p class="panel-description">Control how your website appears in search engines.</p>
+
+<h2>
+SEO Settings
+</h2>
+
+<p class="panel-description">
+Control how your website appears in search engines.
+</p>
 
 <div class="form-group">
-<label>Page Title</label>
-<input value="Sonofthelight — Professional Website Design">
+
+<label>
+Page Title
+</label>
+
+<input
+value="Sonofthelight — Professional Website Design"
+>
+
 </div>
 
 <div class="form-group">
-<label>Meta Description</label>
-<textarea>Professional website design for businesses, entrepreneurs and professionals.</textarea>
+
+<label>
+Meta Description
+</label>
+
+<textarea>
+Professional website design for businesses, entrepreneurs and professionals.
+</textarea>
+
 </div>
 
 <div class="form-group">
-<label>Keywords</label>
-<input placeholder="website design, web designer, Nigeria, business websites">
+
+<label>
+Keywords
+</label>
+
+<input
+placeholder="website design, web designer, Nigeria, business websites"
+>
+
 </div>
 
 <div class="form-group">
-<label>Google Search Image URL</label>
-<input placeholder="https://example.com/og-image.jpg">
+
+<label>
+Google Search Image URL
+</label>
+
+<input
+placeholder="https://example.com/og-image.jpg"
+>
+
 </div>
 
-<button class="save" onclick="saveMessage()">Save SEO</button>
+<button
+class="save"
+onclick="saveMessage()"
+>
+Save SEO
+</button>
+
 </div>
 
 </section>
 
 
 <!-- ENQUIRIES -->
+
 <section id="enquiries" class="section">
 
 <div class="panel">
 
-<h2>Enquiries</h2>
-<p class="panel-description">Manage customer enquiries and project leads.</p>
+<h2>
+Enquiries
+</h2>
+
+<p class="panel-description">
+Manage customer enquiries and project leads.
+</p>
 
 <div class="table-wrap">
 
 <table>
 
 <thead>
+
 <tr>
-<th>Name</th>
-<th>Service</th>
-<th>Status</th>
-<th>Date</th>
-<th>Action</th>
+
+<th>
+Name
+</th>
+
+<th>
+Service
+</th>
+
+<th>
+Status
+</th>
+
+<th>
+Date
+</th>
+
+<th>
+Action
+</th>
+
 </tr>
+
 </thead>
 
 <tbody>
 
 <tr>
-<td>No enquiries yet</td>
-<td>—</td>
-<td><span class="badge">New</span></td>
-<td>—</td>
-<td><button class="secondary">View</button></td>
+
+<td>
+No enquiries yet
+</td>
+
+<td>
+—
+</td>
+
+<td>
+<span class="badge">
+New
+</span>
+</td>
+
+<td>
+—
+</td>
+
+<td>
+<button class="secondary">
+View
+</button>
+</td>
+
 </tr>
 
 </tbody>
@@ -1156,21 +2144,43 @@ Database connection and permanent saving will be connected in the next stage.
 
 </div>
 
+
 <div class="panel">
 
-<h2>Lead Statuses</h2>
+<h2>
+Lead Statuses
+</h2>
 
 <p class="panel-description">
 Use these statuses to track customers from first contact to completed project.
 </p>
 
 <div class="actions">
-<span class="badge">New</span>
-<span class="badge">Contacted</span>
-<span class="badge">Negotiating</span>
-<span class="badge">Won</span>
-<span class="badge">Completed</span>
-<span class="badge">Lost</span>
+
+<span class="badge">
+New
+</span>
+
+<span class="badge">
+Contacted
+</span>
+
+<span class="badge">
+Negotiating
+</span>
+
+<span class="badge">
+Won
+</span>
+
+<span class="badge">
+Completed
+</span>
+
+<span class="badge">
+Lost
+</span>
+
 </div>
 
 </div>
@@ -1179,11 +2189,15 @@ Use these statuses to track customers from first contact to completed project.
 
 
 <!-- AI -->
+
 <section id="ai" class="section">
 
 <div class="panel">
 
-<h2>🤖 Sonny AI</h2>
+<h2>
+🤖 Sonny AI
+</h2>
+
 <p class="panel-description">
 Your AI assistant for website management and customer communication.
 </p>
@@ -1191,31 +2205,80 @@ Your AI assistant for website management and customer communication.
 <div class="ai-box">
 
 <div class="ai-message">
-<strong>Sonny:</strong><br>
-Hello Berachah. I can help you draft client replies, create proposals,
-write service descriptions, summarize enquiries and prepare marketing content.
+
+<strong>
+Sonny:
+</strong>
+
+<br>
+
+Hello Berachah. I can help you draft client replies,
+create proposals, write service descriptions,
+summarize enquiries and prepare marketing content.
+
 </div>
 
 <div class="form-group">
-<label>Ask Sonny</label>
-<textarea id="aiInput" placeholder="Example: Write a reply to a customer asking how much a business website costs."></textarea>
+
+<label>
+Ask Sonny
+</label>
+
+<textarea
+id="aiInput"
+placeholder="Example: Write a reply to a customer asking how much a business website costs."
+></textarea>
+
 </div>
 
-<button class="save" onclick="askSonny()">Ask Sonny</button>
+<button
+class="save"
+onclick="askSonny()"
+>
+Ask Sonny
+</button>
 
 </div>
 
 </div>
+
 
 <div class="panel">
 
-<h2>AI Quick Actions</h2>
+<h2>
+AI Quick Actions
+</h2>
 
 <div class="actions">
-<button class="secondary" onclick="aiAction('proposal')">Create Proposal</button>
-<button class="secondary" onclick="aiAction('reply')">Draft Client Reply</button>
-<button class="secondary" onclick="aiAction('social')">Write Social Post</button>
-<button class="secondary" onclick="aiAction('service')">Write Service Description</button>
+
+<button
+class="secondary"
+onclick="aiAction('proposal')"
+>
+Create Proposal
+</button>
+
+<button
+class="secondary"
+onclick="aiAction('reply')"
+>
+Draft Client Reply
+</button>
+
+<button
+class="secondary"
+onclick="aiAction('social')"
+>
+Write Social Post
+</button>
+
+<button
+class="secondary"
+onclick="aiAction('service')"
+>
+Write Service Description
+</button>
+
 </div>
 
 </div>
@@ -1224,11 +2287,14 @@ write service descriptions, summarize enquiries and prepare marketing content.
 
 
 <!-- DEMOS -->
+
 <section id="demos" class="section">
 
 <div class="panel">
 
-<h2>🌐 Demo Website Generator</h2>
+<h2>
+🌐 Demo Website Generator
+</h2>
 
 <p class="panel-description">
 Create temporary website previews for potential customers.
@@ -1237,84 +2303,196 @@ Create temporary website previews for potential customers.
 <div class="form-grid">
 
 <div class="form-group">
-<label>Business Name</label>
-<input id="demoBusiness" placeholder="Example: Beauty Glow Salon">
+
+<label>
+Business Name
+</label>
+
+<input
+id="demoBusiness"
+placeholder="Example: Beauty Glow Salon"
+>
+
 </div>
 
-<div class="form-group">
-<label>Business Type</label>
-<input placeholder="Salon, restaurant, hotel, barber...">
-</div>
 
 <div class="form-group">
-<label>Location</label>
-<input placeholder="Lagos, Nigeria">
+
+<label>
+Business Type
+</label>
+
+<input
+placeholder="Salon, restaurant, hotel, barber..."
+>
+
 </div>
 
+
 <div class="form-group">
-<label>Preferred Style</label>
+
+<label>
+Location
+</label>
+
+<input
+placeholder="Lagos, Nigeria"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Preferred Style
+</label>
 
 <select>
-<option>Modern</option>
-<option>Premium</option>
-<option>Minimal</option>
-<option>Bold</option>
+
+<option>
+Modern
+</option>
+
+<option>
+Premium
+</option>
+
+<option>
+Minimal
+</option>
+
+<option>
+Bold
+</option>
+
 </select>
 
 </div>
+
 
 <div class="form-group full">
-<label>Services</label>
-<textarea placeholder="List the services offered by the business."></textarea>
+
+<label>
+Services
+</label>
+
+<textarea
+placeholder="List the services offered by the business."
+></textarea>
+
 </div>
 
-<div class="form-group">
-<label>WhatsApp Number</label>
-<input placeholder="+234...">
-</div>
 
 <div class="form-group">
-<label>Demo Expiry</label>
+
+<label>
+WhatsApp Number
+</label>
+
+<input
+placeholder="+234..."
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Demo Expiry
+</label>
 
 <select>
-<option>24 hours</option>
-<option>3 days</option>
-<option>7 days</option>
-<option>30 days</option>
+
+<option>
+24 hours
+</option>
+
+<option>
+3 days
+</option>
+
+<option>
+7 days
+</option>
+
+<option>
+30 days
+</option>
+
 </select>
 
 </div>
 
 </div>
 
-<button class="save" onclick="createDemo()">Generate Demo Website</button>
+<button
+class="save"
+onclick="createDemo()"
+>
+Generate Demo Website
+</button>
 
 </div>
+
 
 <div class="panel">
 
-<h2>Demo Websites</h2>
+<h2>
+Demo Websites
+</h2>
 
 <div class="table-wrap">
 
 <table>
 
 <thead>
+
 <tr>
-<th>Business</th>
-<th>URL</th>
-<th>Status</th>
-<th>Action</th>
+
+<th>
+Business
+</th>
+
+<th>
+URL
+</th>
+
+<th>
+Status
+</th>
+
+<th>
+Action
+</th>
+
 </tr>
+
 </thead>
 
 <tbody id="demoTable">
 
 <tr>
-<td>No demos created yet</td>
-<td>—</td>
-<td><span class="badge">Ready</span></td>
-<td>—</td>
+
+<td>
+No demos created yet
+</td>
+
+<td>
+—
+</td>
+
+<td>
+<span class="badge">
+Ready
+</span>
+</td>
+
+<td>
+—
+</td>
+
 </tr>
 
 </tbody>
@@ -1329,95 +2507,181 @@ Create temporary website previews for potential customers.
 
 
 <!-- SETTINGS -->
+
 <section id="settings" class="section">
 
 <div class="panel">
 
-<h2>Settings</h2>
+<h2>
+Settings
+</h2>
 
 <p class="panel-description">
 Control general website and admin settings.
 </p>
 
+
 <div class="switch-row">
+
 <div>
-<strong>Website Online</strong>
+
+<strong>
+Website Online
+</strong>
+
 <p style="color:#8191a6;font-size:13px;margin-top:4px;">
 Allow visitors to access the website.
 </p>
+
 </div>
 
 <label class="switch">
-<input type="checkbox" checked>
+
+<input
+type="checkbox"
+checked
+>
+
 <span class="slider"></span>
+
 </label>
+
 </div>
 
+
 <div class="switch-row">
+
 <div>
-<strong>Show Pricing</strong>
+
+<strong>
+Show Pricing
+</strong>
+
 <p style="color:#8191a6;font-size:13px;margin-top:4px;">
 Display pricing on the public website.
 </p>
+
 </div>
 
 <label class="switch">
-<input type="checkbox" checked>
+
+<input
+type="checkbox"
+checked
+>
+
 <span class="slider"></span>
+
 </label>
+
 </div>
 
+
 <div class="switch-row">
+
 <div>
-<strong>Show Portfolio</strong>
+
+<strong>
+Show Portfolio
+</strong>
+
 <p style="color:#8191a6;font-size:13px;margin-top:4px;">
 Display portfolio projects publicly.
 </p>
+
 </div>
 
 <label class="switch">
-<input type="checkbox" checked>
+
+<input
+type="checkbox"
+checked
+>
+
 <span class="slider"></span>
+
 </label>
+
 </div>
 
+
 <div class="switch-row">
+
 <div>
-<strong>Maintenance Mode</strong>
+
+<strong>
+Maintenance Mode
+</strong>
+
 <p style="color:#8191a6;font-size:13px;margin-top:4px;">
 Temporarily hide the public website.
 </p>
+
 </div>
 
 <label class="switch">
-<input type="checkbox">
+
+<input
+type="checkbox"
+>
+
 <span class="slider"></span>
+
 </label>
+
 </div>
 
 </div>
+
 
 <div class="panel">
 
-<h2>Admin Security</h2>
+<h2>
+Admin Security
+</h2>
 
-<div class="notice">
-Your admin area should eventually use proper authentication rather than relying only on a hidden page.
+<p class="panel-description">
+Your administrator account is protected by Supabase Authentication.
+</p>
+
+<div class="security-box">
+
+<div>
+
+<strong>
+Authenticated Admin
+</strong>
+
+<p style="color:#8191a6;font-size:13px;margin-top:5px;">
+Only signed-in users can access this dashboard.
+</p>
+
 </div>
 
-<button class="save" onclick="saveMessage()">Save Settings</button>
+<button
+class="danger"
+onclick="logoutAdmin()"
+>
+Logout
+</button>
+
+</div>
 
 </div>
 
 </section>
 
 </main>
+
 </div>
 
 
 <script>
 
-const sectionTitles={
+/* SECTION TITLES */
+
+const sectionTitles = {
+
 dashboard:"Dashboard",
 brand:"Brand & Logo",
 template:"Website Template",
@@ -1434,7 +2698,11 @@ enquiries:"Enquiries",
 ai:"Sonny AI",
 demos:"Demo Websites",
 settings:"Settings"
+
 };
+
+
+/* SHOW SECTION */
 
 function showSection(id,button){
 
@@ -1442,7 +2710,7 @@ document.querySelectorAll(".section").forEach(section=>{
 section.classList.remove("active");
 });
 
-const target=document.getElementById(id);
+const target = document.getElementById(id);
 
 if(target){
 target.classList.add("active");
@@ -1456,7 +2724,7 @@ if(button){
 button.classList.add("active");
 }
 
-document.getElementById("pageTitle").textContent=
+document.getElementById("pageTitle").textContent =
 sectionTitles[id] || "Admin";
 
 document.getElementById("sidebar").classList.remove("open");
@@ -1468,93 +2736,196 @@ behavior:"smooth"
 
 }
 
+
+/* MOBILE MENU */
+
 function toggleSidebar(){
 
-document.getElementById("sidebar").classList.toggle("open");
+document
+.getElementById("sidebar")
+.classList
+.toggle("open");
 
 }
+
+
+/* LOGOUT */
+
+async function logoutAdmin(){
+
+const { error } =
+await supabaseClient.auth.signOut();
+
+if(error){
+
+alert(
+"Logout failed: " +
+error.message
+);
+
+return;
+
+}
+
+window.location.replace("login.html");
+
+}
+
+
+/* TEMPORARY SAVE MESSAGE */
 
 function saveMessage(){
 
-alert("Saved successfully. Permanent database saving will be connected in the next stage.");
+alert(
+"Your changes are ready to be connected to the database."
+);
 
 }
 
+
+/* TEMPLATE */
+
 function selectTemplate(element){
 
-document.querySelectorAll(".template").forEach(template=>{
+document
+.querySelectorAll(".template")
+.forEach(template=>{
+
 template.classList.remove("selected");
 
-const button=template.querySelector("button");
+const button =
+template.querySelector("button");
 
 if(button){
 button.className="secondary";
 }
+
 });
 
 element.classList.add("selected");
 
-const button=element.querySelector("button");
+const button =
+element.querySelector("button");
 
 if(button){
 button.className="save";
 }
 
-alert("Template selected. Connect the database in the next stage to make this permanent.");
+alert(
+"Template selected. We will connect permanent saving next."
+);
 
 }
+
+
+/* SONNY */
 
 function askSonny(){
 
-const input=document.getElementById("aiInput");
+const input =
+document.getElementById("aiInput");
 
 if(!input.value.trim()){
-alert("Type a question for Sonny first.");
+
+alert(
+"Type a question for Sonny first."
+);
+
 return;
-}
-
-alert("Sonny AI is ready for connection to your AI API. Your request was: "+input.value);
 
 }
+
+alert(
+"Sonny AI will be connected to the AI service next.\n\nYour request:\n" +
+input.value
+);
+
+}
+
+
+/* AI QUICK ACTIONS */
 
 function aiAction(type){
 
-const messages={
-proposal:"Create a professional website proposal for a potential client.",
-reply:"Write a friendly reply to a customer asking about website pricing.",
-social:"Write a promotional social media post for Sonofthelight.",
-service:"Write a professional description for my website design service."
+const messages = {
+
+proposal:
+"Create a professional website proposal for a potential client.",
+
+reply:
+"Write a friendly reply to a customer asking about website pricing.",
+
+social:
+"Write a promotional social media post for Sonofthelight.",
+
+service:
+"Write a professional description for my website design service."
+
 };
 
-document.getElementById("aiInput").value=messages[type];
+document.getElementById("aiInput").value =
+messages[type];
 
 showSection("ai");
 
 }
 
+
+/* DEMO */
+
 function createDemo(){
 
-const business=document.getElementById("demoBusiness").value.trim();
+const business =
+document
+.getElementById("demoBusiness")
+.value
+.trim();
 
 if(!business){
-alert("Enter the business name first.");
+
+alert(
+"Enter the business name first."
+);
+
 return;
+
 }
 
-const table=document.getElementById("demoTable");
+const table =
+document.getElementById("demoTable");
 
-table.innerHTML=`
+table.innerHTML = `
+
 <tr>
-<td>${business}</td>
-<td>Will be generated</td>
-<td><span class="badge">Preparing</span></td>
-<td><button class="secondary">View</button></td>
+
+<td>
+${business}
+</td>
+
+<td>
+Will be generated
+</td>
+
+<td>
+<span class="badge">
+Preparing
+</span>
+</td>
+
+<td>
+<button class="secondary">
+View
+</button>
+</td>
+
 </tr>
+
 `;
 
 alert(
-"Demo request created for "+business+
-". The live AI demo generator will be connected in the next stage."
+"Demo request created for " +
+business +
+". The live demo generator will be connected next."
 );
 
 }
