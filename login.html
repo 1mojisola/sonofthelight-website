@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sonofthelight — Admin Login</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: #07111f;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 420px;
+  background: #0d1b2d;
+  border: 1px solid #203149;
+  border-radius: 16px;
+  padding: 28px;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 18px;
+}
+
+h1 {
+  margin-bottom: 8px;
+}
+
+.description {
+  color: #8191a6;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+label {
+  display: block;
+  color: #aebbd0;
+  font-size: 13px;
+  margin-bottom: 7px;
+}
+
+input {
+  width: 100%;
+  padding: 13px;
+  margin-bottom: 16px;
+  background: #07111f;
+  border: 1px solid #29415e;
+  border-radius: 8px;
+  color: white;
+  outline: none;
+}
+
+input:focus {
+  border-color: #38bdf8;
+}
+
+button {
+  width: 100%;
+  padding: 13px;
+  border: 0;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.error {
+  display: none;
+  background: #351820;
+  border: 1px solid #64303b;
+  color: #ffb4c0;
+  padding: 11px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.loading {
+  display: none;
+  color: #8191a6;
+  text-align: center;
+  margin-top: 15px;
+  font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+<div class="logo">S</div>
+
+<h1>Admin Login</h1>
+
+<p class="description">
+Sign in to manage your Sonofthelight website and business.
+</p>
+
+<div id="error" class="error"></div>
+
+<form id="loginForm">
+
+<label>Email</label>
+<input
+  id="email"
+  type="email"
+  value="rotowaberachah@gmail.com"
+  required
+>
+
+<label>Password</label>
+<input
+  id="password"
+  type="password"
+  placeholder="Enter your password"
+  required
+>
+
+<button id="loginButton" type="submit">
+Sign In
+</button>
+
+<div id="loading" class="loading">
+Signing you in...
+</div>
+
+</form>
+
+</div>
+
+<script>
+
+const SUPABASE_URL =
+"https://oughvnubnadulfpxkkxn.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_5iS7u0vVMbQmJdVMlqiBqw_FhIs13so";
+
+const supabaseClient =
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+const form =
+document.getElementById("loginForm");
+
+const errorBox =
+document.getElementById("error");
+
+const loginButton =
+document.getElementById("loginButton");
+
+const loading =
+document.getElementById("loading");
+
+
+form.addEventListener("submit", async function(event) {
+
+  event.preventDefault();
+
+  errorBox.style.display = "none";
+  loading.style.display = "block";
+  loginButton.disabled = true;
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  const { error } =
+    await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+
+  if (error) {
+
+    errorBox.textContent =
+      error.message;
+
+    errorBox.style.display = "block";
+
+    loading.style.display = "none";
+    loginButton.disabled = false;
+
+    return;
+  }
+
+  window.location.href = "admin.html";
+
+});
+
+</script>
+
+</body>
+  </html>
